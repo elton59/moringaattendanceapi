@@ -15,7 +15,7 @@ module.exports =
          }
          // return Student
          static findstudentModel(studentDetail, callback){
-            conn.query("SELECT * from attendance WHERE registrationnumber = ?   ", [studentDetail.registrationnumber,studentDetail.checkintime] , async (err, results) => {
+            conn.query("SELECT * from attendance WHERE registrationnumber = ? order by checkintime desc   ", [studentDetail.registrationnumber] , async (err, results) => {
                 if (err) {
                     console.log (`There was trouble executing the sql, error :${ err }`);
                     callback ({error: "Internal server error"});
@@ -46,7 +46,7 @@ static async updateLessonModel(lessonUpdateArr, callback){
     }
     else{
 
-        conn.query("UPDATE attendance  SET lessonkey=?,comment=? WHERE Id = ?", [ lessonUpdateArr.lessonkey,lessonUpdateArr.comment,lessonUpdateArr.Id] , (err, results) => {
+        conn.query("UPDATE attendance  SET lessonkey=?,comment=? WHERE id = ?", [ lessonUpdateArr.lessonkey,lessonUpdateArr.comment,lessonUpdateArr.Id] , (err, results) => {
        
             if (err) {
                 callback ({error: err}, null);
